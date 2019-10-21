@@ -37,10 +37,11 @@ $ sudo dd if=linux4sam-buildroot-sama5d2_xplained-6.1.img of=/dev/sdb bs=4M stat
 ```
 
 Insert the SD card to the devboard's SD card slot. Attach an ethernet cable to
-the devboard in order to attach it to the local network. Connect a USB cable to
-the micro-USB port labelled J14 on the board.  Wait for Linux to boot. On the
-host, start a serial session in order to run commands on the devboard. On the
-devboard, via this serial session, run the following commands:
+the devboard and connect the other end to the local network. Connect a USB cable
+from the host machine to the micro-USB port labelled J14 on the board.  Wait for
+Linux to boot on the board. On the host, start a serial session in order to run
+commands on the devboard. On the devboard, via this serial session, run the
+following commands:
 
 ```
 ## check that we're running the expected kernel version
@@ -83,14 +84,14 @@ ls /sys/class/udc > UDC
 
 Now connect the host to the micro-USB port labelled J23 on the devboard. A new
 serial device should appear on the host. In my case, the device is called
-/dev/ttyACM1 (the name it gets can be observed in dmesg). Note that on Ubuntu
-18.04, a program called ModemManager may try to take over the device. To prevent
-this, either disable or uninstall ModemManager (e.g. to uninstall, use sudo apt
-purge modemmanager).
+/dev/ttyACM1 (the name it gets can be observed in the output of `dmesg`). Note
+that on Ubuntu 18.04, a program called ModemManager may try to claim the device.
+To prevent this, either disable or uninstall ModemManager (e.g. to uninstall,
+use sudo apt purge modemmanager).
 
 Now we need to run the test program on both the host and the device in order to
-exercise the USB device. To the compile the test program for both the host and
-the device, run:
+exercise the USB device. To compile the test program for both the host and the
+device, run:
 
 ```
 make # compile for host
@@ -119,5 +120,5 @@ re-connect the USB device, verifying that the connection is re-established each
 time and that the previously-setup ping continues to work.
 
 Eventually, USB and networking will stop working on the devboard (the host
-serial_stress will no longer be able to connect and the pings will start getting
+`serial_stress` will no longer be able to connect and the pings will start getting
 dropped). Serial access (over the J14 port) should continue to work.
