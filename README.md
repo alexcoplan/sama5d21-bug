@@ -13,12 +13,11 @@ but the USB device is otherwise not functional.
 
 ## Steps to reproduce
 
-I've reproduced this issue using the buildroot-based Linux image
-available from the linux4sam webpage for the SAMA5D2 Xplained devboard
+I've reproduced this issue using the buildroot-based Linux image available from
+the linux4sam webpage for the SAMA5D2 Xplained devboard
 (https://www.at91.com/linux4sam/bin/view/Linux4SAM/Sama5d2XplainedMainPage).
-Here is an [FTP
-link](ftp://www.at91.com/pub/demo/linux4sam_6.1/linux4sam-buildroot-sama5d2_xplained-6.1.img.bz2)
-to the image.
+Here is an FTP link to the image:
+ftp://www.at91.com/pub/demo/linux4sam_6.1/linux4sam-buildroot-sama5d2_xplained-6.1.img.bz2
 
 Below are the steps taken (from an Ubuntu 18.04 host) to flash this image to the
 SD for the device.
