@@ -50,11 +50,6 @@ static const char *dir_to_string(dir_t dir)
   return NULL;
 }
 
-enum {
-  STATS_TICK = 100,
-  RATELIMIT_BYTES_IN_TICK = 8000,
-};
-
 static void stats_next(ctx_t *ctx, dir_t dir, size_t count)
 {
   stats_t *stats = ctx->stats + dir;
@@ -86,8 +81,7 @@ static void stats_next(ctx_t *ctx, dir_t dir, size_t count)
 
 static void close_dev(ctx_t *ctx)
 {
-  assert(ctx->serial_fd != -1);
-  close(ctx->serial_fd);
+  assert(!close(ctx->serial_fd));
   ctx->serial_fd = -1;
 }
 
@@ -95,7 +89,7 @@ static void do_read(ctx_t *ctx)
 {
   uint8_t buf[512];
 
-  ssize_t r_zd = read(ctx->serial_fd, buf, sizeof(buf)-1);
+  ssize_t r_zd = read(ctx->serial_fd, buf, sizeof(buf));
   if (r_zd < 0) {
     if (errno == EAGAIN)
       return;
@@ -135,7 +129,7 @@ static void do_write(ctx_t *ctx)
   ssize_t w_zd = write(ctx->serial_fd, buf, to_write);
   if (w_zd < 0) {
     if (errno != EAGAIN) {
-      fprintf(stderr, "write() -> %zd: %m", w_zd);
+      DBG("write() -> %zd: %m", w_zd);
       close_dev(ctx);
     }
     return;
