@@ -5,7 +5,7 @@ on the sama5d2 while the UDC is in use causes both the UDC and the EMAC on the
 chip to stop working. The observable behaviour w.r.t. the EMAC on the sama5d2 is
 that packets start backing up in the Linux qdisc and don't get dequeued onto the
 network interface. We stop getting transmit complete interrupts (this can be
-observed by looking at the output of /proc/interrupts). Equally we no longer get
+observed by looking at the output of `/proc/interrupts`). Equally we no longer get
 incoming packets.
 
 The observable behaviour w.r.t. USB is that the device enumerates on the host,
@@ -84,10 +84,10 @@ ls /sys/class/udc > UDC
 
 Now connect the host to the micro-USB port labelled J23 on the devboard. A new
 serial device should appear on the host. In my case, the device is called
-/dev/ttyACM1 (the name it gets can be observed in the output of `dmesg`). Note
+`/dev/ttyACM1` (the name it gets can be observed in the output of `dmesg`). Note
 that on Ubuntu 18.04, a program called ModemManager may try to claim the device.
-To prevent this, either disable or uninstall ModemManager (e.g. to uninstall,
-use sudo apt purge modemmanager).
+To prevent this, either disable or uninstall ModemManager (to stop, run
+`sudo systemctl stop modemmanager`; to uninstall, use `sudo apt purge modemmanager`).
 
 Now we need to run the test program on both the host and the device in order to
 exercise the USB device. To compile the test program for both the host and the
