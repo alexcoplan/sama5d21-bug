@@ -57,6 +57,9 @@ udhcpc: sending select for 10.8.0.166
 udhcpc: lease of 10.8.0.166 obtained, lease time 10800
 deleting routers
 adding dns 10.8.0.1
+
+## if interface already configured, check ip with:
+ip a show dev eth0 | grep inet
 ```
 
 On the host, start pinging the device over the network:
